@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { SearchManufacturer } from ".";
 import Image from "next/image";
-import { manufacturers } from "../constants/index";
 import { useRouter } from "next/navigation";
 
 const SearchButton = ({ otherClasses }: { otherClasses: string }) => (
@@ -24,12 +23,11 @@ const SearchBar = () => {
   const router = useRouter()
   const handleSearch = (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault();
-    if (manufacturer === "" && model === "") {
+    if (manufacturer.trim() === "" && model.trim() === "") {
       return alert("Please fill in the search bar");
     }
     
     updateSearchParams(model.toLowerCase(), manufacturer.toLowerCase())
-
 
   };  
 
@@ -42,10 +40,10 @@ const SearchBar = () => {
       searchParams.delete("model");
     }
 
-    if (manufacturer) {
-      searchParams.set("manufacturer", manufacturer);
+    if (manufacturers) {
+      searchParams.set("manufacturers", manufacturers);
     } else {
-      searchParams.delete("manufacturer");
+      searchParams.delete("manufacturers");
     }
     const newPathname = `${
       window.location.pathname
